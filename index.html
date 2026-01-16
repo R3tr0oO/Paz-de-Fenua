@@ -29,8 +29,6 @@
             overflow-x: hidden;
         }
         
-        body.product-page-open { overflow: hidden; }
-        
         body::before {
             content: '';
             position: fixed;
@@ -44,6 +42,7 @@
                 repeating-linear-gradient(-45deg, transparent, transparent 35px, var(--primary) 35px, var(--primary) 36px);
         }
         
+        /* HEADER */
         header {
             position: fixed;
             top: 0; width: 100%;
@@ -57,241 +56,697 @@
         nav {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1.5rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
-        .nav-actions { display: flex; gap: 1rem; align-items: center; }
-        
-        .search-icon-btn, .cart-btn {
-            background: none; border: none;
-            cursor: pointer; padding: 0.5rem;
-            font-size: 1.3rem; color: var(--text);
-            transition: color 0.3s ease;
-            display: flex; align-items: center;
-        }
-        
-        .cart-btn { gap: 0.5rem; padding: 0.5rem 1rem; font-size: 0.9rem; position: relative; }
-        .search-icon-btn:hover, .cart-btn:hover { color: var(--turquoise); }
-        
         .logo {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem; font-weight: 300;
+            font-size: 1.8rem; font-weight: 300;
             color: var(--primary); letter-spacing: 2px;
             cursor: pointer; transition: color 0.3s ease;
         }
         .logo:hover { color: var(--turquoise); }
         
+        /* NAVIGATION LINKS */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            font-size: 0.95rem;
+            color: var(--text);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
+            background: var(--turquoise);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover { color: var(--turquoise); }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link.active { color: var(--turquoise); font-weight: 500; }
+        .nav-link.active::after { width: 100%; }
+        
+        .cart-btn {
+            background: none; border: none;
+            cursor: pointer; padding: 0.5rem 1rem;
+            font-size: 0.95rem; color: var(--text);
+            transition: color 0.3s ease;
+            display: flex; align-items: center;
+            gap: 0.5rem; position: relative;
+        }
+        .cart-btn:hover { color: var(--turquoise); }
+        
         .cart-count {
             position: absolute; top: 0; right: 0;
-            background: var(--secondary); color: white;
+            background: var(--coral); color: white;
             border-radius: 50%; width: 20px; height: 20px;
             display: flex; align-items: center; justify-content: center;
             font-size: 0.7rem; font-weight: 500;
         }
         
-        /* Search Modal */
-        .search-overlay {
-            position: fixed; inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.4s ease; z-index: 2999;
-        }
-        .search-overlay.active { opacity: 1; pointer-events: all; }
-        
-        .search-modal {
-            position: fixed; top: -100%; left: 0;
-            width: 100%; background: white; z-index: 3000;
-            padding: 2rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-bottom: 3px solid var(--turquoise);
-        }
-        .search-modal.active { top: 0; }
-        
-        .search-modal-content {
-            max-width: 800px; margin: 0 auto;
-            display: flex; gap: 1rem; align-items: center;
+        /* MOBILE NAV */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
         }
         
-        .search-modal input {
-            flex: 1; padding: 1rem 1.5rem;
-            border: 2px solid var(--light); border-radius: 25px;
-            font-size: 1.1rem; font-family: 'Montserrat', sans-serif;
+        .mobile-nav-toggle span {
+            display: block;
+            width: 25px; height: 3px;
+            background: var(--primary);
+            margin: 5px 0;
+            border-radius: 3px;
             transition: all 0.3s ease;
         }
-        .search-modal input:focus {
-            outline: none; border-color: var(--turquoise);
-            box-shadow: 0 0 0 3px rgba(77, 184, 168, 0.1);
-        }
         
-        .close-search {
-            background: none; border: none; font-size: 1.8rem;
-            cursor: pointer; color: var(--text); transition: color 0.3s ease;
+        /* PAGES */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 70px;
         }
-        .close-search:hover { color: var(--coral); }
+        .page.active { display: block; }
         
-        /* Hero */
-        .hero {
-            margin-top: 80px; height: 60vh;
+        /* HOME HERO */
+        .home-hero {
+            height: 100vh;
             background: linear-gradient(135deg, var(--turquoise) 0%, var(--ocean) 50%, var(--primary) 100%);
-            display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: -70px;
+            padding-top: 70px;
         }
         
-        .hero::before {
-            content: ''; position: absolute;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
-            border-radius: 50%; top: -200px; right: -100px;
-            animation: float 20s ease-in-out infinite;
+        .home-hero::before {
+            content: '';
+            position: absolute;
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -300px; right: -200px;
+            animation: floatSlow 25s ease-in-out infinite;
         }
         
-        .hero::after {
-            content: '🌺'; position: absolute;
-            font-size: 15rem; opacity: 0.08;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-15deg);
-            animation: float 25s ease-in-out infinite reverse;
+        .home-hero::after {
+            content: '🌺';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.06;
+            bottom: -50px; left: -50px;
+            animation: floatSlow 30s ease-in-out infinite reverse;
         }
         
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-50px, 30px) scale(1.1); }
+        @keyframes floatSlow {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, 20px) rotate(5deg); }
         }
         
-        .hero-content { text-align: center; z-index: 1; animation: fadeInUp 1s ease-out; }
+        .wave-decoration {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 150px;
+            overflow: hidden;
+        }
+        
+        .wave-decoration svg {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 100%;
+            animation: waveMove 20s linear infinite;
+        }
+        
+        @keyframes waveMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .home-hero-content {
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
         
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .hero h1 {
+        .home-hero h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 4rem; font-weight: 300; color: white;
-            margin-bottom: 1rem; letter-spacing: 3px;
+            font-size: 5rem; font-weight: 300;
+            color: white;
+            margin-bottom: 1rem;
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .home-hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .cta-primary {
+            background: white;
+            color: var(--primary);
+            border: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+        }
+        
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: white;
+        }
+        
+        /* ABOUT SECTION */
+        .about-section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            position: relative;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--light) 50%, rgba(77, 184, 168, 0.2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(13, 77, 77, 0.15);
+        }
+        
+        .about-image::before {
+            content: '🌴🌺🥥';
+            font-size: 6rem;
+            opacity: 0.4;
+            animation: gentleFloat 8s ease-in-out infinite;
+        }
+        
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+        
+        .about-badge {
+            position: absolute;
+            top: 2rem; left: 2rem;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(255, 123, 107, 0.4);
+        }
+        
+        .about-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .about-content h2 span { color: var(--coral); }
+        
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .about-feature-icon {
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, rgba(77, 184, 168, 0.15) 0%, rgba(10, 122, 140, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .about-feature-text h4 {
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+        
+        .about-feature-text p {
+            font-size: 0.9rem;
+            color: #777;
+            margin: 0;
+        }
+        
+        /* VALUES SECTION */
+        .values-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--light) 0%, var(--bg) 100%);
+        }
+        
+        .values-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .value-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--turquoise), var(--coral), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(77, 184, 168, 0.15);
+        }
+        
+        .value-card:hover::before { transform: scaleX(1); }
+        
+        .value-icon {
+            width: 80px; height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, rgba(77, 184, 168, 0.15) 0%, rgba(255, 123, 107, 0.1) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: transform 0.4s ease;
+        }
+        
+        .value-card:hover .value-icon { transform: scale(1.1) rotate(5deg); }
+        
+        .value-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .value-card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        /* ORIGINS SECTION */
+        .origins-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--ocean) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .origins-section::before {
+            content: '🌺🌴🥥🌺🌴🥥';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10rem;
+            opacity: 0.05;
+            white-space: nowrap;
+        }
+        
+        .origins-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .origins-container h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+        
+        .origins-container p {
+            font-size: 1.2rem;
+            line-height: 2;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+        
+        .origins-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item { text-align: center; }
+        
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            font-weight: 300;
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* CTA SECTION */
+        .cta-section {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-container h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-container p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, var(--turquoise) 0%, var(--ocean) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 25px rgba(77, 184, 168, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(77, 184, 168, 0.5);
+            background: linear-gradient(135deg, var(--coral) 0%, var(--secondary) 100%);
+        }
+        
+        /* PRODUCTS PAGE */
+        .products-hero {
+            height: 40vh;
+            background: linear-gradient(135deg, var(--turquoise) 0%, var(--ocean) 50%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .products-hero::after {
+            content: '🌺';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.08;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+        }
+        
+        .products-hero-content { text-align: center; z-index: 1; }
+        
+        .products-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem; font-weight: 300;
+            color: white; letter-spacing: 3px;
             text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
         }
         
-        .hero p {
-            font-size: 1.1rem; color: rgba(255, 255, 255, 0.95);
-            font-weight: 300; letter-spacing: 1px;
+        .products-hero p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 0.5rem;
         }
         
-        /* Products Section */
         .products-section {
-            max-width: 1400px; margin: 4rem auto; padding: 0 2rem;
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
         }
         
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem; font-weight: 400; color: var(--primary);
-            margin-bottom: 3rem; text-align: center; letter-spacing: 2px;
-            position: relative; padding-bottom: 1.5rem;
-        }
-        
-        .section-title::after {
-            content: ''; position: absolute; bottom: 0;
-            left: 50%; transform: translateX(-50%);
-            width: 120px; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--turquoise), var(--coral), var(--secondary), transparent);
-        }
-        
-        .section-title::before {
-            content: '🌴'; position: absolute;
-            left: 50%; transform: translateX(-50%);
-            bottom: -15px; font-size: 1.5rem;
-            background: var(--bg); padding: 0 10px;
-        }
-        
-        /* Filters */
+        /* FILTERS */
         .filters-container {
-            background: white; border-radius: 12px;
-            margin-bottom: 3rem; box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
             overflow: hidden;
         }
         
         .filters-header {
             padding: 1.2rem 2rem;
             background: linear-gradient(135deg, var(--light) 0%, white 100%);
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 1px solid var(--light);
         }
         
         .filters-header-title {
-            font-weight: 500; color: var(--primary);
-            display: flex; align-items: center; gap: 0.5rem; cursor: pointer;
+            font-weight: 500;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
         }
         
         .view-toggle {
-            display: flex; gap: 0.5rem;
-            background: var(--light); padding: 0.3rem; border-radius: 20px;
+            display: flex;
+            gap: 0.5rem;
+            background: var(--light);
+            padding: 0.3rem;
+            border-radius: 20px;
         }
         
         .view-btn {
-            background: transparent; border: none;
-            padding: 0.5rem 1rem; border-radius: 15px;
-            cursor: pointer; font-size: 1.2rem;
-            transition: all 0.3s ease; color: var(--text);
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            color: var(--text);
         }
         .view-btn:hover { color: var(--turquoise); }
         .view-btn.active {
-            background: white; color: var(--turquoise);
+            background: white;
+            color: var(--turquoise);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
         .toggle-icon {
-            font-size: 1.2rem; transition: transform 0.3s ease;
-            color: var(--turquoise); cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            color: var(--turquoise);
+            cursor: pointer;
         }
         .toggle-icon.collapsed { transform: rotate(-90deg); }
         
         .filters-content {
-            max-height: 500px; overflow: hidden;
+            max-height: 500px;
+            overflow: hidden;
             transition: max-height 0.4s ease, padding 0.4s ease;
             padding: 2rem;
         }
         .filters-content.collapsed { max-height: 0; padding: 0 2rem; }
         
         .filters-row {
-            display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
         }
         
         .filter-group {
-            display: flex; gap: 0.5rem; align-items: center;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
         }
         
         .filter-label { font-size: 0.9rem; color: var(--text); font-weight: 500; }
-        
         .category-filters { display: flex; gap: 0.5rem; flex-wrap: wrap; flex: 1; }
         
         .category-btn {
-            padding: 0.5rem 1.2rem; border: 2px solid var(--light);
-            background: white; border-radius: 20px; cursor: pointer;
-            font-size: 0.85rem; transition: all 0.3s ease;
-            font-family: 'Montserrat', sans-serif; color: var(--text);
+            padding: 0.5rem 1.2rem;
+            border: 2px solid var(--light);
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
         }
         .category-btn:hover { border-color: var(--turquoise); color: var(--turquoise); }
         .category-btn.active {
             background: linear-gradient(135deg, var(--turquoise) 0%, var(--ocean) 100%);
-            color: white; border-color: var(--turquoise);
+            color: white;
+            border-color: var(--turquoise);
         }
         
         .sort-select {
-            padding: 0.6rem 1.2rem; border: 2px solid var(--light);
-            border-radius: 20px; font-size: 0.85rem;
-            font-family: 'Montserrat', sans-serif; cursor: pointer;
-            background: white; color: var(--text); transition: all 0.3s ease;
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--light);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            background: white;
+            color: var(--text);
+            transition: all 0.3s ease;
         }
         .sort-select:focus { outline: none; border-color: var(--turquoise); }
         
-        /* Products Grid */
+        /* PRODUCTS GRID */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2.5rem; transition: all 0.3s ease;
+            gap: 2.5rem;
+            transition: all 0.3s ease;
         }
         
         .products-grid.list-view { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
@@ -299,12 +754,15 @@
         .products-grid.list-view .product-image { width: 180px; height: 180px; flex-shrink: 0; }
         .products-grid.list-view .product-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         
-        /* Product Card */
+        /* PRODUCT CARD */
         .product-card {
-            background: white; border-radius: 12px; overflow: hidden;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 2px solid transparent; cursor: pointer;
+            border: 2px solid transparent;
+            cursor: pointer;
         }
         .product-card:hover {
             transform: translateY(-8px);
@@ -313,15 +771,21 @@
         }
         
         .product-image {
-            width: 100%; height: 300px;
+            width: 100%;
+            height: 280px;
             background: linear-gradient(135deg, var(--accent) 0%, var(--light) 50%, rgba(77, 184, 168, 0.1) 100%);
-            position: relative; overflow: hidden;
+            position: relative;
+            overflow: hidden;
         }
         
         .product-placeholder {
-            width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 5rem; opacity: 0.6;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            opacity: 0.6;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
         .product-card:hover .product-placeholder { transform: scale(1.1); opacity: 0.8; }
@@ -330,27 +794,38 @@
         
         .product-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem; font-weight: 400;
-            color: var(--primary); margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
         }
         
         .product-description {
-            font-size: 0.9rem; color: #666;
-            margin-bottom: 1rem; line-height: 1.5;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
         }
         
         .product-footer {
-            display: flex; justify-content: space-between;
-            align-items: center; margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
         }
         
         .product-price { font-size: 1.3rem; font-weight: 500; color: var(--secondary); }
         
         .add-to-cart {
             background: linear-gradient(135deg, var(--turquoise) 0%, var(--ocean) 100%);
-            color: white; border: none; padding: 0.7rem 1.5rem;
-            border-radius: 25px; cursor: pointer; font-size: 0.9rem;
-            transition: all 0.3s ease; font-weight: 500;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
             box-shadow: 0 4px 15px rgba(77, 184, 168, 0.3);
         }
         .add-to-cart:hover {
@@ -358,147 +833,196 @@
             transform: scale(1.05);
         }
         
-        /* ==================== PRODUCT PAGE ==================== */
+        /* PRODUCT PAGE OVERLAY */
         .product-page-overlay {
-            position: fixed; inset: 0;
-            background: var(--bg); z-index: 2000;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.4s ease; overflow-y: auto;
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            overflow-y: auto;
         }
         .product-page-overlay.active { opacity: 1; pointer-events: all; }
         
-        .product-page-container { min-height: 100vh; padding-top: 80px; }
-        
         .product-page-header {
-            position: fixed; top: 0; left: 0; right: 0;
+            position: fixed;
+            top: 0; left: 0; right: 0;
             background: rgba(253, 251, 247, 0.98);
-            backdrop-filter: blur(10px); z-index: 2001;
+            backdrop-filter: blur(10px);
+            z-index: 2001;
             border-bottom: 3px solid var(--turquoise);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
         }
         
         .product-page-nav {
-            max-width: 1400px; margin: 0 auto; padding: 1rem 2rem;
-            display: flex; align-items: center; justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
         .back-btn {
-            background: none; border: none; cursor: pointer;
-            font-size: 1rem; color: var(--text);
-            transition: all 0.3s ease; display: flex;
-            align-items: center; gap: 0.5rem;
-            padding: 0.5rem 1rem; border-radius: 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
         }
         .back-btn:hover { color: var(--turquoise); background: rgba(77, 184, 168, 0.1); }
-        .back-btn span:first-child { font-size: 1.3rem; }
         
         .product-page-logo {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem; font-weight: 300;
-            color: var(--primary); letter-spacing: 2px; cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--primary);
+            cursor: pointer;
         }
         
         .product-page-cart {
-            position: relative; background: none; border: none;
-            cursor: pointer; padding: 0.5rem; font-size: 1.3rem;
-            color: var(--text); transition: color 0.3s ease;
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--text);
         }
         .product-page-cart:hover { color: var(--secondary); }
         
         .product-page-cart-count {
-            position: absolute; top: 0; right: -5px;
-            background: var(--secondary); color: white;
-            border-radius: 50%; width: 18px; height: 18px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.65rem; font-weight: 500;
+            position: absolute;
+            top: -5px; right: -8px;
+            background: var(--coral);
+            color: white;
+            border-radius: 50%;
+            width: 18px; height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
         }
         
+        .product-page-container { min-height: 100vh; padding-top: 80px; }
         .product-page-content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
         
         .product-detail-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 4rem; margin-bottom: 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
         }
         
         .product-detail-image {
-            width: 100%; height: 500px;
+            width: 100%;
+            height: 500px;
             background: linear-gradient(135deg, var(--accent) 0%, var(--light) 50%, rgba(77, 184, 168, 0.1) 100%);
-            border-radius: 20px; display: flex;
-            align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         
         .product-detail-icon {
-            font-size: 12rem; z-index: 2;
+            font-size: 12rem;
             animation: gentleFloat 6s ease-in-out infinite;
-            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
-        }
-        
-        @keyframes gentleFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
         }
         
         .product-badge {
-            position: absolute; top: 1.5rem; left: 1.5rem;
+            position: absolute;
+            top: 1.5rem; left: 1.5rem;
             background: linear-gradient(135deg, var(--coral) 0%, var(--secondary) 100%);
-            color: white; padding: 0.5rem 1rem; border-radius: 20px;
-            font-size: 0.8rem; font-weight: 500; z-index: 3;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
         
         .product-detail-info { display: flex; flex-direction: column; justify-content: center; }
         
         .product-category-tag {
             display: inline-block;
-            background: rgba(77, 184, 168, 0.1); color: var(--turquoise);
-            padding: 0.4rem 1rem; border-radius: 15px;
-            font-size: 0.8rem; font-weight: 500;
-            text-transform: uppercase; letter-spacing: 1px;
-            margin-bottom: 1rem; width: fit-content;
+            background: rgba(77, 184, 168, 0.1);
+            color: var(--turquoise);
+            padding: 0.4rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            width: fit-content;
         }
         
         .product-detail-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem; font-weight: 400;
-            color: var(--primary); margin-bottom: 1rem; line-height: 1.2;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 1rem;
         }
         
         .product-detail-price {
-            font-size: 2.5rem; font-weight: 600;
-            color: var(--secondary); margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
         }
-        .product-detail-price span { font-size: 1rem; color: #999; font-weight: 400; margin-left: 0.5rem; }
         
         .product-detail-description {
-            font-size: 1.1rem; line-height: 1.8;
-            color: #555; margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2rem;
         }
         
         .product-quantity-selector {
-            display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
         
         .quantity-label { font-weight: 500; color: var(--text); }
         
         .quantity-controls {
-            display: flex; align-items: center;
-            background: var(--light); border-radius: 30px; padding: 0.3rem;
+            display: flex;
+            align-items: center;
+            background: var(--light);
+            border-radius: 30px;
+            padding: 0.3rem;
         }
         
         .quantity-btn-page {
-            width: 40px; height: 40px; border: none;
-            background: white; border-radius: 50%;
-            cursor: pointer; font-size: 1.2rem; color: var(--turquoise);
-            transition: all 0.3s ease; display: flex;
-            align-items: center; justify-content: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 40px; height: 40px;
+            border: none;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--turquoise);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .quantity-btn-page:hover { background: var(--turquoise); color: white; }
         
         .quantity-display {
-            min-width: 50px; text-align: center;
-            font-size: 1.2rem; font-weight: 600; color: var(--primary);
+            min-width: 50px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
         }
         
         .product-detail-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
@@ -506,31 +1030,32 @@
         .add-to-cart-large {
             flex: 1;
             background: linear-gradient(135deg, var(--turquoise) 0%, var(--ocean) 100%);
-            color: white; border: none; padding: 1.2rem 2rem;
-            border-radius: 30px; cursor: pointer; font-size: 1.1rem;
-            transition: all 0.3s ease; font-weight: 500;
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
             box-shadow: 0 6px 25px rgba(77, 184, 168, 0.4);
-            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
         .add-to-cart-large:hover {
             background: linear-gradient(135deg, var(--coral) 0%, var(--secondary) 100%);
             transform: translateY(-3px);
         }
-        .add-to-cart-large span:first-child { font-size: 1.3rem; }
-        
-        .wishlist-btn {
-            width: 60px; height: 60px; border: 2px solid var(--light);
-            background: white; border-radius: 50%; cursor: pointer;
-            font-size: 1.5rem; transition: all 0.3s ease;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .wishlist-btn:hover { border-color: var(--coral); color: var(--coral); transform: scale(1.1); }
-        .wishlist-btn.active { background: var(--coral); border-color: var(--coral); color: white; }
         
         .product-features {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1rem; padding: 1.5rem 0;
-            border-top: 1px solid var(--light); border-bottom: 1px solid var(--light);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--light);
+            border-bottom: 1px solid var(--light);
         }
         
         .feature-item { display: flex; align-items: center; gap: 0.8rem; }
@@ -538,111 +1063,234 @@
         .feature-icon {
             width: 45px; height: 45px;
             background: linear-gradient(135deg, rgba(77, 184, 168, 0.1) 0%, rgba(10, 122, 140, 0.1) 100%);
-            border-radius: 12px; display: flex;
-            align-items: center; justify-content: center; font-size: 1.3rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
         }
         
-        .feature-text { font-size: 0.85rem; color: #666; line-height: 1.3; }
+        .feature-text { font-size: 0.85rem; color: #666; }
         .feature-text strong { display: block; color: var(--primary); font-weight: 500; }
         
         .product-sections {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 2rem; margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
         }
         
         .product-section-card {
-            background: white; border-radius: 16px; padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .product-section-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
         }
         
         .product-section-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem; font-weight: 400; color: var(--primary);
-            margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
-        .product-section-title span { font-size: 1.3rem; }
         
         .product-section-content { font-size: 0.95rem; line-height: 1.8; color: #666; }
         
-        .ingredients-list {
-            list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem;
-        }
-        .ingredients-list li {
-            background: var(--light); padding: 0.4rem 0.8rem;
-            border-radius: 15px; font-size: 0.85rem; color: var(--text);
+        /* CONTACT PAGE */
+        .contact-hero {
+            height: 40vh;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--secondary) 50%, var(--turquoise) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
         
-        .related-products { margin-top: 4rem; padding-top: 3rem; border-top: 2px solid var(--light); }
+        .contact-hero::after {
+            content: '✉️';
+            position: absolute;
+            font-size: 12rem;
+            opacity: 0.08;
+        }
         
-        .related-title {
+        .contact-hero h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem; font-weight: 400; color: var(--primary);
-            margin-bottom: 2rem; text-align: center;
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: white;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
         }
         
-        .related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-        
-        .related-card {
-            background: white; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            cursor: pointer; transition: all 0.3s ease;
-        }
-        .related-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(77, 184, 168, 0.2); }
-        
-        .related-image {
-            height: 150px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--light) 100%);
-            display: flex; align-items: center; justify-content: center; font-size: 3rem;
+        .contact-section {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 2rem;
         }
         
-        .related-info { padding: 1rem; }
-        .related-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--primary); margin-bottom: 0.3rem; }
-        .related-price { font-weight: 500; color: var(--secondary); }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+        }
         
-        /* Cart Sidebar */
+        .contact-info { padding: 2rem; }
+        
+        .contact-info h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, rgba(77, 184, 168, 0.15) 0%, rgba(10, 122, 140, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-text h4 {
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+        
+        .contact-text p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--turquoise);
+        }
+        
+        .form-group textarea { min-height: 150px; resize: vertical; }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--turquoise) 0%, var(--ocean) 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 25px rgba(77, 184, 168, 0.4);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, var(--coral) 0%, var(--secondary) 100%);
+        }
+        
+        /* CART SIDEBAR */
         .cart-sidebar {
-            position: fixed; right: -450px; top: 0;
-            width: 450px; height: 100vh; background: white;
+            position: fixed;
+            right: -450px; top: 0;
+            width: 450px; height: 100vh;
+            background: white;
             box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15);
             transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 3000; display: flex; flex-direction: column;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
             border-left: 3px solid var(--turquoise);
         }
         .cart-sidebar.open { right: 0; }
         
         .cart-overlay {
-            position: fixed; inset: 0;
+            position: fixed;
+            inset: 0;
             background: rgba(0, 0, 0, 0.4);
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.4s ease; z-index: 2999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            z-index: 2999;
         }
         .cart-overlay.active { opacity: 1; pointer-events: all; }
         
         .cart-header {
-            padding: 2rem; border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            display: flex; justify-content: space-between; align-items: center;
+            padding: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+        
         .cart-header h2 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem; font-weight: 400; color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--primary);
         }
         
         .close-cart {
-            background: none; border: none; font-size: 1.5rem;
-            cursor: pointer; color: var(--text); transition: color 0.3s ease;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+            transition: color 0.3s ease;
         }
-        .close-cart:hover { color: var(--secondary); }
+        .close-cart:hover { color: var(--coral); }
         
         .cart-items { flex: 1; overflow-y: auto; padding: 2rem; }
         
         .cart-item {
-            display: flex; gap: 1rem; margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem; border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             animation: slideIn 0.3s ease-out;
         }
         
@@ -652,9 +1300,13 @@
         }
         
         .cart-item-image {
-            width: 80px; height: 80px; background: var(--light);
-            border-radius: 10px; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+            width: 80px; height: 80px;
+            background: var(--light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
         }
         
         .cart-item-details { flex: 1; }
@@ -664,36 +1316,56 @@
         .cart-item-actions { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
         
         .quantity-btn {
-            background: var(--light); border: 1px solid var(--turquoise);
-            width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s ease; color: var(--turquoise); font-weight: 600;
+            background: var(--light);
+            border: 1px solid var(--turquoise);
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: var(--turquoise);
+            font-weight: 600;
         }
         .quantity-btn:hover { background: var(--turquoise); color: white; }
         
         .quantity { padding: 0 0.8rem; font-weight: 500; }
         
         .remove-item {
-            margin-left: auto; background: none; border: none;
-            color: #999; cursor: pointer; transition: color 0.2s ease; font-size: 1.1rem;
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            font-size: 1.1rem;
         }
         .remove-item:hover { color: #e74c3c; }
         
         .cart-footer { padding: 2rem; border-top: 1px solid rgba(0, 0, 0, 0.1); }
         
         .cart-total {
-            display: flex; justify-content: space-between;
-            align-items: center; margin-bottom: 1.5rem; font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
         }
-        .cart-total-label { font-family: 'Cormorant Garamond', serif; font-weight: 400; color: var(--primary); }
+        .cart-total-label { font-family: 'Cormorant Garamond', serif; color: var(--primary); }
         .cart-total-amount { font-weight: 500; color: var(--secondary); font-size: 1.5rem; }
         
         .checkout-btn {
             width: 100%;
             background: linear-gradient(135deg, var(--turquoise) 0%, var(--ocean) 100%);
-            color: white; border: none; padding: 1rem;
-            border-radius: 25px; font-size: 1rem; cursor: pointer;
-            transition: all 0.3s ease; font-weight: 500; letter-spacing: 1px;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
             box-shadow: 0 4px 15px rgba(77, 184, 168, 0.3);
         }
         .checkout-btn:hover {
@@ -704,111 +1376,331 @@
         .empty-cart { text-align: center; padding: 4rem 2rem; color: #999; }
         .empty-cart-icon { font-size: 4rem; margin-bottom: 1rem; opacity: 0.3; }
         
-        /* Footer */
+        /* FOOTER */
         footer {
             background: linear-gradient(135deg, var(--primary) 0%, var(--ocean) 100%);
-            color: white; text-align: center; padding: 3rem 2rem;
-            margin-top: 6rem; position: relative; overflow: hidden;
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 6rem;
+            position: relative;
+            overflow: hidden;
         }
-        footer::before {
-            content: ''; position: absolute; top: 0; left: 0;
-            width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--turquoise), var(--coral), var(--secondary), var(--turquoise));
-        }
-        footer::after {
-            content: '🌺 🌴 🥥 🌺';
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 6rem; opacity: 0.05; white-space: nowrap;
-        }
-        footer p { font-size: 0.9rem; opacity: 0.8; letter-spacing: 1px; }
         
-        /* Responsive */
+        footer::before {
+            content: '🌺 🌴 🥥 🌺';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            opacity: 0.03;
+            white-space: nowrap;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            opacity: 0.85;
+        }
+        
+        .footer-links { list-style: none; }
+        
+        .footer-links li { margin-bottom: 0.8rem; }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+        .footer-links a:hover { opacity: 1; }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-bottom p {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .about-image { height: 400px; }
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
             .product-detail-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .product-detail-image { height: 400px; }
-            .product-detail-icon { font-size: 10rem; }
             .product-sections { grid-template-columns: 1fr; }
-            .related-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
             .products-grid.list-view { grid-template-columns: 1fr; }
         }
         
         @media (max-width: 768px) {
             nav { padding: 1rem; }
             .logo { font-size: 1.4rem; }
-            .cart-btn span:nth-child(2) { display: none; }
-            .hero { height: 45vh; margin-top: 70px; }
-            .hero h1 { font-size: 2.2rem; }
-            .products-section { padding: 0 1rem; margin: 2.5rem auto; }
-            .section-title { font-size: 2rem; }
-            .filters-row { flex-direction: column; align-items: stretch; }
-            .filter-group { width: 100%; flex-direction: column; align-items: stretch; }
-            .products-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .product-image { height: 250px; }
             
-            .product-page-nav { padding: 1rem; }
-            .back-btn span:last-child { display: none; }
-            .product-page-content { padding: 1rem; }
-            .product-detail-image { height: 300px; border-radius: 16px; }
+            .nav-links { display: none; }
+            .mobile-nav-toggle { display: block; }
+            
+            .nav-links.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                gap: 0;
+            }
+            
+            .nav-links.mobile-open .nav-link {
+                padding: 1rem;
+                border-bottom: 1px solid var(--light);
+            }
+            
+            .cart-btn span:nth-child(2) { display: none; }
+            
+            .home-hero h1 { font-size: 3rem; }
+            .home-hero-subtitle { font-size: 1rem; }
+            .hero-cta { flex-direction: column; gap: 1rem; }
+            .cta-btn { width: 100%; text-align: center; }
+            
+            .about-content h2 { font-size: 2.2rem; }
+            .about-features { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .origins-stats { gap: 2rem; }
+            .stat-number { font-size: 3rem; }
+            
+            .products-section { padding: 0 1rem; margin: 2.5rem auto; }
+            .products-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .filters-row { flex-direction: column; align-items: stretch; }
+            .filter-group { width: 100%; flex-direction: column; }
+            
+            .product-detail-image { height: 300px; }
             .product-detail-icon { font-size: 8rem; }
             .product-detail-title { font-size: 2rem; }
             .product-detail-price { font-size: 2rem; }
-            .product-quantity-selector { flex-direction: column; align-items: flex-start; }
-            .product-detail-actions { flex-direction: column; }
-            .wishlist-btn { width: 100%; border-radius: 30px; height: 50px; }
             .product-features { grid-template-columns: 1fr; }
-            .related-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-            .related-image { height: 120px; font-size: 2.5rem; }
             
+            .contact-form { padding: 1.5rem; }
             .cart-sidebar { width: 100%; right: -100%; }
         }
         
         @media (max-width: 480px) {
             .logo { font-size: 1.2rem; }
-            .hero { height: 40vh; }
-            .hero h1 { font-size: 1.8rem; }
+            .home-hero h1 { font-size: 2.2rem; letter-spacing: 2px; }
+            .about-content h2 { font-size: 1.8rem; }
+            .section-header h2 { font-size: 2rem; }
+            
             .product-footer { flex-direction: column; gap: 0.8rem; align-items: stretch; }
             .add-to-cart { width: 100%; }
+            
             .product-detail-image { height: 250px; }
             .product-detail-icon { font-size: 6rem; }
             .product-detail-title { font-size: 1.6rem; }
-            .quantity-controls { width: 100%; justify-content: center; }
+            .product-quantity-selector { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
+    <!-- HEADER -->
     <header>
         <nav>
-            <div class="logo" onclick="goHome()">Paz de Fenua</div>
-            <div class="nav-actions">
-                <button class="search-icon-btn" onclick="toggleSearch()"><span>🔍</span></button>
+            <div class="logo" onclick="navigateTo('home')">Paz de Fenua</div>
+            
+            <div class="nav-links" id="navLinks">
+                <a class="nav-link active" data-page="home" onclick="navigateTo('home')">Accueil</a>
+                <a class="nav-link" data-page="products" onclick="navigateTo('products')">Nos Produits</a>
+                <a class="nav-link" data-page="contact" onclick="navigateTo('contact')">Contact</a>
                 <button class="cart-btn" onclick="toggleCart()">
                     <span>🛒</span><span>Panier</span>
                     <span class="cart-count" id="cartCount">0</span>
                 </button>
             </div>
+            
+            <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
-    <div class="search-overlay" id="searchOverlay" onclick="toggleSearch()"></div>
-    <div class="search-modal" id="searchModal">
-        <div class="search-modal-content">
-            <input type="text" id="searchBarModal" placeholder="Rechercher un produit..." oninput="filterProducts()"/>
-            <button class="close-search" onclick="toggleSearch()">✕</button>
-        </div>
+    <!-- HOME PAGE -->
+    <div class="page active" id="page-home">
+        <section class="home-hero">
+            <div class="home-hero-content">
+                <h1>Paz de Fenua</h1>
+                <p class="home-hero-subtitle">L'essence du Pacifique pour votre beauté naturelle</p>
+                <div class="hero-cta">
+                    <button class="cta-btn cta-primary" onclick="navigateTo('products')">Découvrir nos produits</button>
+                    <button class="cta-btn cta-secondary" onclick="scrollToAbout()">Notre histoire</button>
+                </div>
+            </div>
+            <div class="wave-decoration">
+                <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    <path fill="#fdfbf7" d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
+                </svg>
+            </div>
+        </section>
+
+        <section class="about-section" id="aboutSection">
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="about-badge">🌿 100% Naturel</div>
+                </div>
+                <div class="about-content">
+                    <h2>La beauté venue des <span>îles du Pacifique</span></h2>
+                    <p>Paz de Fenua puise son inspiration dans les traditions ancestrales polynésiennes. Nos formules uniques combinent les trésors naturels des îles du Pacifique : le monoï de Tahiti, l'huile de coco vierge, le tamanu sacré et les fleurs de tiaré parfumées.</p>
+                    <p>Chaque produit est élaboré avec respect pour la nature et les savoir-faire traditionnels, pour vous offrir une expérience sensorielle authentique et des résultats visibles.</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="about-feature-icon">🌱</div>
+                            <div class="about-feature-text">
+                                <h4>Ingrédients naturels</h4>
+                                <p>Sans parabènes ni sulfates</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">🐰</div>
+                            <div class="about-feature-text">
+                                <h4>Cruelty-free</h4>
+                                <p>Non testé sur les animaux</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">♻️</div>
+                            <div class="about-feature-text">
+                                <h4>Éco-responsable</h4>
+                                <p>Emballages recyclables</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">🇵🇫</div>
+                            <div class="about-feature-text">
+                                <h4>Made in Tahiti</h4>
+                                <p>Fabriqué en Polynésie</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="values-section">
+            <div class="values-container">
+                <div class="section-header">
+                    <h2>Nos Valeurs</h2>
+                    <p>Des principes qui guident chacune de nos créations</p>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">🌺</div>
+                        <h3>Authenticité</h3>
+                        <p>Nous préservons les recettes traditionnelles polynésiennes transmises de génération en génération.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🌊</div>
+                        <h3>Respect de l'océan</h3>
+                        <p>Nos formules sont biodégradables et nos emballages sont conçus pour minimiser notre impact.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">💚</div>
+                        <h3>Efficacité naturelle</h3>
+                        <p>La puissance des actifs botaniques du Pacifique pour des résultats visibles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="origins-section">
+            <div class="origins-container">
+                <h2>Notre Héritage Polynésien</h2>
+                <p>Paz de Fenua signifie "Paix de la Terre" en tahitien. Cette philosophie guide notre approche : créer des cosmétiques qui honorent la terre qui nous nourrit et les traditions qui nous inspirent.</p>
+                <div class="origins-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Produits</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Naturel</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5000+</span>
+                        <span class="stat-label">Clients satisfaits</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-container">
+                <h2>Prêt(e) à découvrir nos trésors ?</h2>
+                <p>Explorez notre collection de soins naturels inspirés du Pacifique.</p>
+                <button class="cta-button" onclick="navigateTo('products')">Voir tous nos produits</button>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Paz de Fenua</h3>
+                    <p>Cosmétiques naturels inspirés des traditions ancestrales polynésiennes.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a onclick="navigateTo('home')">Accueil</a></li>
+                        <li><a onclick="navigateTo('products')">Nos Produits</a></li>
+                        <li><a onclick="navigateTo('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📍 Papeete, Tahiti<br>📧 contact@pazdefenua.com<br>📞 +689 40 123 456</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Paz de Fenua - Tous droits réservés</p>
+            </div>
+        </footer>
     </div>
 
-    <div class="main-content" id="mainContent">
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Paz de Fenua</h1>
-                <p>Cosmétiques naturels inspirés du Pacifique</p>
+    <!-- PRODUCTS PAGE -->
+    <div class="page" id="page-products">
+        <section class="products-hero">
+            <div class="products-hero-content">
+                <h1>Nos Produits</h1>
+                <p>Des soins naturels pour révéler votre beauté</p>
             </div>
         </section>
 
         <section class="products-section">
-            <h2 class="section-title">Nos Produits</h2>
-            
             <div class="filters-container">
                 <div class="filters-header">
                     <div class="filters-header-title" onclick="toggleFilters()"><span>Filtres & Tri</span></div>
@@ -849,9 +1741,118 @@
             <div class="products-grid" id="productsGrid"></div>
         </section>
 
-        <footer><p>© 2026 Paz de Fenua - Cosmétiques Naturels</p></footer>
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Paz de Fenua</h3>
+                    <p>Cosmétiques naturels inspirés des traditions ancestrales polynésiennes.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a onclick="navigateTo('home')">Accueil</a></li>
+                        <li><a onclick="navigateTo('products')">Nos Produits</a></li>
+                        <li><a onclick="navigateTo('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📍 Papeete, Tahiti<br>📧 contact@pazdefenua.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Paz de Fenua - Tous droits réservés</p>
+            </div>
+        </footer>
     </div>
 
+    <!-- CONTACT PAGE -->
+    <div class="page" id="page-contact">
+        <section class="contact-hero">
+            <h1>Contactez-nous</h1>
+        </section>
+
+        <section class="contact-section">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Restons en contact</h2>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <h4>Adresse</h4>
+                            <p>123 Rue du Monoï<br>98713 Papeete, Tahiti</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p>contact@pazdefenua.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">
+                            <h4>Téléphone</h4>
+                            <p>+689 40 123 456</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕐</div>
+                        <div class="contact-text">
+                            <h4>Horaires</h4>
+                            <p>Lun - Ven : 9h - 18h<br>Sam : 10h - 16h</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div class="form-group">
+                        <label>Nom complet</label>
+                        <input type="text" placeholder="Votre nom">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="votre@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Sujet</label>
+                        <input type="text" placeholder="Comment pouvons-nous vous aider ?">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="Votre message..."></textarea>
+                    </div>
+                    <button class="submit-btn" onclick="submitForm()">Envoyer le message</button>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Paz de Fenua</h3>
+                    <p>Cosmétiques naturels inspirés des traditions ancestrales polynésiennes.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a onclick="navigateTo('home')">Accueil</a></li>
+                        <li><a onclick="navigateTo('products')">Nos Produits</a></li>
+                        <li><a onclick="navigateTo('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📍 Papeete, Tahiti<br>📧 contact@pazdefenua.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Paz de Fenua - Tous droits réservés</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- PRODUCT PAGE OVERLAY -->
     <div class="product-page-overlay" id="productPageOverlay">
         <div class="product-page-header">
             <div class="product-page-nav">
@@ -865,6 +1866,7 @@
         </div>
     </div>
 
+    <!-- CART SIDEBAR -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <aside class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
@@ -884,19 +1886,20 @@
     </aside>
 
     <script>
+        // PRODUCTS DATA
         const products = [
-            { id: 1, name: "Lorem Ipsum Dolor", description: "Sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt", price: 28.90, icon: "🌺", category: "cheveux", categoryLabel: "Cheveux", longDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", ingredients: "Aqua, Glycerin, Cetearyl Alcohol, Behentrimonium Chloride, Dimethicone", usage: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.", badge: "Nouveau" },
-            { id: 2, name: "Consectetur Adipiscing", description: "Ut labore et dolore magna aliqua enim ad minim veniam quis nostrud", price: 35.00, icon: "🥥", category: "soin-visage", categoryLabel: "Soin Visage", longDescription: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.", ingredients: "Aqua, Cocos Nucifera Oil, Butyrospermum Parkii Butter, Glycerin", usage: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.", badge: "Best-seller" },
-            { id: 3, name: "Sed Do Eiusmod", description: "Exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat", price: 12.50, icon: "💄", category: "maquillage", categoryLabel: "Maquillage", longDescription: "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.", ingredients: "Ricinus Communis Seed Oil, Cera Alba, Cocos Nucifera Oil", usage: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit." },
-            { id: 4, name: "Tempor Incididunt", description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum", price: 18.00, icon: "🧼", category: "soin-corps", categoryLabel: "Soin Corps", longDescription: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.", ingredients: "Sodium Palmate, Sodium Cocoate, Aqua, Glycerin", usage: "Similique sunt in culpa qui officia deserunt mollitia animi." },
-            { id: 5, name: "Ut Labore Dolore", description: "Dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat", price: 58.00, icon: "✨", category: "soin-visage", categoryLabel: "Soin Visage", longDescription: "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.", ingredients: "Aqua, Glycerin, Niacinamide, Pearl Powder, Sodium Hyaluronate", usage: "Temporibus autem quibusdam et aut officiis debitis.", badge: "Premium" },
-            { id: 6, name: "Magna Aliqua", description: "Non proident sunt in culpa qui officia deserunt mollit anim id est", price: 24.90, icon: "🌿", category: "soin-visage", categoryLabel: "Soin Visage", longDescription: "Itaque earum rerum hic tenetur a sapiente delectus.", ingredients: "Aqua, Montmorillonite, Kaolin, Glycerin, Aloe Barbadensis Leaf Juice", usage: "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse." },
-            { id: 7, name: "Enim Ad Minim", description: "Veniam quis nostrud exercitation ullamco laboris nisi ut aliquip", price: 32.00, icon: "☕", category: "soin-corps", categoryLabel: "Soin Corps", longDescription: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.", ingredients: "Sucrose, Coffea Arabica Seed Powder, Cocos Nucifera Oil", usage: "Et quasi architecto beatae vitae dicta sunt explicabo." },
-            { id: 8, name: "Veniam Quis Nostrud", description: "Ex ea commodo consequat duis aute irure dolor in reprehenderit", price: 29.50, icon: "🌴", category: "soin-corps", categoryLabel: "Soin Corps", longDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.", ingredients: "Aqua, Cocos Nucifera Oil, Gardenia Tahitensis Flower Extract", usage: "Risus commodo viverra maecenas accumsan lacus vel facilisis." },
-            { id: 9, name: "Commodo Consequat", description: "Sunt in culpa qui officia deserunt mollit anim id est laborum", price: 42.00, icon: "💆", category: "soin-visage", categoryLabel: "Soin Visage", longDescription: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.", ingredients: "Aqua, Glycerin, Squalane, Niacinamide, Hyaluronic Acid", usage: "Appliquer matin et soir sur une peau propre et sèche." },
-            { id: 10, name: "Deserunt Mollit", description: "Anim id est laborum sed ut perspiciatis unde omnis iste natus", price: 26.50, icon: "🧴", category: "cheveux", categoryLabel: "Cheveux", longDescription: "Voluptatem accusantium doloremque laudantium, totam rem aperiam.", ingredients: "Aqua, Sodium Laureth Sulfate, Cocamidopropyl Betaine, Glycerin, Argan Oil", usage: "Appliquer sur cheveux mouillés, masser pour faire mousser." },
-            { id: 11, name: "Perspiciatis Unde", description: "Omnis iste natus error sit voluptatem accusantium doloremque", price: 38.90, icon: "💋", category: "maquillage", categoryLabel: "Maquillage", longDescription: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.", ingredients: "Ricinus Communis Seed Oil, Cera Alba, Ozokerite", usage: "Appliquer directement sur les lèvres." },
-            { id: 12, name: "Accusantium Doloremque", description: "Laudantium totam rem aperiam eaque ipsa quae ab illo inventore", price: 19.00, icon: "🌸", category: "soin-corps", categoryLabel: "Soin Corps", longDescription: "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.", ingredients: "Aqua, Prunus Amygdalus Dulcis Oil, Glycerin, Rosa Damascena Flower Water", usage: "Appliquer généreusement sur tout le corps après la douche." }
+            { id: 1, name: "Huile de Monoï Tiaré", description: "Huile traditionnelle tahitienne à la fleur de tiaré", price: 28.90, icon: "🌺", category: "cheveux", categoryLabel: "Cheveux", longDescription: "Notre huile de Monoï est élaborée selon la méthode traditionnelle tahitienne.", ingredients: "Cocos Nucifera Oil, Gardenia Tahitensis Flower Extract, Tocopherol", usage: "Appliquer sur cheveux secs ou humides.", badge: "Nouveau" },
+            { id: 2, name: "Crème Visage Coco-Tamanu", description: "Soin hydratant intense à l'huile de tamanu et lait de coco", price: 35.00, icon: "🥥", category: "soin-visage", categoryLabel: "Soin Visage", longDescription: "Cette crème onctueuse combine les propriétés régénérantes de l'huile de tamanu.", ingredients: "Aqua, Cocos Nucifera Oil, Calophyllum Inophyllum Seed Oil, Glycerin", usage: "Appliquer matin et soir sur une peau propre.", badge: "Best-seller" },
+            { id: 3, name: "Baume Lèvres Vanille", description: "Baume nourrissant à la vanille de Tahiti", price: 12.50, icon: "💄", category: "maquillage", categoryLabel: "Maquillage", longDescription: "Un baume fondant qui répare et protège les lèvres sèches.", ingredients: "Ricinus Communis Seed Oil, Cera Alba, Vanilla Planifolia", usage: "Appliquer sur les lèvres aussi souvent que nécessaire." },
+            { id: 4, name: "Savon Surgras au Tamanu", description: "Savon artisanal enrichi en huile de tamanu", price: 18.00, icon: "🧼", category: "soin-corps", categoryLabel: "Soin Corps", longDescription: "Ce savon surgras nettoie en douceur tout en préservant la peau.", ingredients: "Sodium Palmate, Sodium Cocoate, Calophyllum Inophyllum Seed Oil", usage: "Faire mousser et appliquer sur le corps." },
+            { id: 5, name: "Sérum Perle des Îles", description: "Sérum éclat à la poudre de perle de Tahiti", price: 58.00, icon: "✨", category: "soin-visage", categoryLabel: "Soin Visage", longDescription: "Ce sérum précieux illumine le teint grâce à la poudre de perle.", ingredients: "Aqua, Glycerin, Niacinamide, Pearl Powder, Sodium Hyaluronate", usage: "Appliquer quelques gouttes sur le visage.", badge: "Premium" },
+            { id: 6, name: "Masque Argile & Aloe", description: "Masque purifiant à l'argile verte et aloe vera", price: 24.90, icon: "🌿", category: "soin-visage", categoryLabel: "Soin Visage", longDescription: "Ce masque associe l'argile verte purifiante et l'aloe vera hydratant.", ingredients: "Aqua, Montmorillonite, Kaolin, Aloe Barbadensis Leaf Juice", usage: "Laisser poser 10-15 minutes puis rincer." },
+            { id: 7, name: "Gommage Café & Coco", description: "Exfoliant corps au café de Tahiti et noix de coco", price: 32.00, icon: "☕", category: "soin-corps", categoryLabel: "Soin Corps", longDescription: "Ce gommage gourmand élimine les cellules mortes.", ingredients: "Sucrose, Coffea Arabica Seed Powder, Cocos Nucifera Oil", usage: "Appliquer sur peau humide en massages circulaires." },
+            { id: 8, name: "Lait Corps au Tiaré", description: "Lait hydratant léger au parfum de fleur de tiaré", price: 29.50, icon: "🌴", category: "soin-corps", categoryLabel: "Soin Corps", longDescription: "Ce lait fondant pénètre rapidement pour hydrater sans effet gras.", ingredients: "Aqua, Cocos Nucifera Oil, Gardenia Tahitensis Flower Extract", usage: "Appliquer généreusement après la douche." },
+            { id: 9, name: "Crème Anti-Âge Nacre", description: "Soin anti-rides à la nacre de Polynésie", price: 42.00, icon: "💆", category: "soin-visage", categoryLabel: "Soin Visage", longDescription: "Cette crème luxueuse combat les signes de l'âge.", ingredients: "Aqua, Glycerin, Squalane, Pearl Powder, Tocopherol", usage: "Appliquer matin et soir sur visage et cou." },
+            { id: 10, name: "Shampoing Coco Réparateur", description: "Shampoing nourrissant au lait de coco", price: 26.50, icon: "🧴", category: "cheveux", categoryLabel: "Cheveux", longDescription: "Ce shampoing crémeux nettoie en douceur les cheveux secs.", ingredients: "Aqua, Sodium Laureth Sulfate, Cocos Nucifera Oil", usage: "Appliquer sur cheveux mouillés, masser puis rincer." },
+            { id: 11, name: "Rouge à Lèvres Corail", description: "Rouge à lèvres hydratant aux pigments naturels", price: 38.90, icon: "💋", category: "maquillage", categoryLabel: "Maquillage", longDescription: "Un rouge à lèvres crémeux qui colore intensément.", ingredients: "Ricinus Communis Seed Oil, Cera Alba, CI 77491", usage: "Appliquer directement sur les lèvres." },
+            { id: 12, name: "Beurre Corporel Frangipane", description: "Beurre fondant au parfum de frangipane", price: 19.00, icon: "🌸", category: "soin-corps", categoryLabel: "Soin Corps", longDescription: "Ce beurre riche et onctueux fond sur la peau.", ingredients: "Butyrospermum Parkii Butter, Plumeria Alba Flower Extract", usage: "Appliquer sur les zones sèches." }
         ];
 
         let filteredProducts = [...products];
@@ -904,48 +1907,48 @@
         let currentSort = 'default';
         let cart = [];
         let currentView = 'grid';
-        let currentProductQuantity = 1;
-        let currentProductId = null;
-        let wishlist = [];
+        let currentPage = 'home';
+        let selectedQuantity = 1;
 
-        renderProducts();
+        // NAVIGATION
+        function navigateTo(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + page).classList.add('active');
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === page) link.classList.add('active');
+            });
+            
+            currentPage = page;
+            window.scrollTo(0, 0);
+            if (page === 'products') renderProducts();
+            
+            // Close mobile nav if open
+            document.getElementById('navLinks').classList.remove('mobile-open');
+        }
 
-        function goHome() { closeProductPage(); }
+        function scrollToAbout() {
+            document.getElementById('aboutSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleMobileNav() {
+            document.getElementById('navLinks').classList.toggle('mobile-open');
+        }
+
+        // FILTERS
+        function toggleFilters() {
+            document.getElementById('filtersContent').classList.toggle('collapsed');
+            document.getElementById('toggleIcon').classList.toggle('collapsed');
+        }
 
         function setView(view) {
             if (event) event.stopPropagation();
             currentView = view;
             const grid = document.getElementById('productsGrid');
-            const gridBtn = document.getElementById('gridViewBtn');
-            const listBtn = document.getElementById('listViewBtn');
-            if (view === 'list') {
-                grid.classList.add('list-view');
-                listBtn.classList.add('active');
-                gridBtn.classList.remove('active');
-            } else {
-                grid.classList.remove('list-view');
-                gridBtn.classList.add('active');
-                listBtn.classList.remove('active');
-            }
-        }
-
-        function toggleSearch() {
-            const modal = document.getElementById('searchModal');
-            const overlay = document.getElementById('searchOverlay');
-            const input = document.getElementById('searchBarModal');
-            modal.classList.toggle('active');
-            overlay.classList.toggle('active');
-            if (modal.classList.contains('active')) {
-                setTimeout(() => input.focus(), 100);
-            } else {
-                input.value = '';
-                filterProducts();
-            }
-        }
-
-        function toggleFilters() {
-            document.getElementById('filtersContent').classList.toggle('collapsed');
-            document.getElementById('toggleIcon').classList.toggle('collapsed');
+            document.getElementById('gridViewBtn').classList.toggle('active', view === 'grid');
+            document.getElementById('listViewBtn').classList.toggle('active', view === 'list');
+            grid.classList.toggle('list-view', view === 'list');
         }
 
         function filterByCategory(category) {
@@ -955,21 +1958,16 @@
             applyFilters();
         }
 
-        function filterProducts() { applyFilters(); }
-
         function sortProducts() {
             currentSort = document.getElementById('sortSelect').value;
             applyFilters();
         }
 
         function applyFilters() {
-            const searchTerm = document.getElementById('searchBarModal').value.toLowerCase();
-            filteredProducts = currentCategory === 'all' ? [...products] : products.filter(p => p.category === currentCategory);
-            if (searchTerm) {
-                filteredProducts = filteredProducts.filter(p => 
-                    p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm)
-                );
-            }
+            filteredProducts = currentCategory === 'all' 
+                ? [...products] 
+                : products.filter(p => p.category === currentCategory);
+            
             switch(currentSort) {
                 case 'name-asc': filteredProducts.sort((a, b) => a.name.localeCompare(b.name)); break;
                 case 'name-desc': filteredProducts.sort((a, b) => b.name.localeCompare(a.name)); break;
@@ -977,9 +1975,11 @@
                 case 'price-desc': filteredProducts.sort((a, b) => b.price - a.price); break;
                 default: filteredProducts.sort((a, b) => a.id - b.id);
             }
+            
             renderProducts();
         }
 
+        // PRODUCTS
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             if (filteredProducts.length === 0) {
@@ -994,131 +1994,150 @@
                         <p class="product-description">${product.description}</p>
                         <div class="product-footer">
                             <span class="product-price">${product.price.toFixed(2)} €</span>
-                            <button class="add-to-cart" onclick="addToCartFromGrid(event, ${product.id})">Ajouter</button>
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">Ajouter</button>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        function addToCartFromGrid(event, productId) {
-            event.stopPropagation();
-            addToCart(productId);
-        }
-
+        // PRODUCT PAGE
         function openProductPage(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
-            currentProductId = productId;
-            currentProductQuantity = 1;
-            const relatedProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
-            const isInWishlist = wishlist.includes(productId);
+            selectedQuantity = 1;
+            const related = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
             
             document.getElementById('productPageContent').innerHTML = `
                 <div class="product-detail-grid">
-                    <div class="product-detail-image-container">
-                        <div class="product-detail-image">
-                            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                            <div class="product-detail-icon">${product.icon}</div>
-                        </div>
+                    <div class="product-detail-image">
+                        ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                        <div class="product-detail-icon">${product.icon}</div>
                     </div>
                     <div class="product-detail-info">
-                        <span class="product-category-tag">${product.categoryLabel || product.category}</span>
+                        <div class="product-category-tag">${product.categoryLabel}</div>
                         <h1 class="product-detail-title">${product.name}</h1>
-                        <div class="product-detail-price">${product.price.toFixed(2)} €<span>TTC</span></div>
-                        <p class="product-detail-description">${product.longDescription || product.description}</p>
+                        <div class="product-detail-price">${product.price.toFixed(2)} €</div>
+                        <p class="product-detail-description">${product.longDescription}</p>
+                        
                         <div class="product-quantity-selector">
-                            <span class="quantity-label">Quantité:</span>
+                            <span class="quantity-label">Quantité :</span>
                             <div class="quantity-controls">
-                                <button class="quantity-btn-page" onclick="updateProductQuantity(-1)">−</button>
+                                <button class="quantity-btn-page" onclick="updateSelectedQuantity(-1)">−</button>
                                 <span class="quantity-display" id="quantityDisplay">1</span>
-                                <button class="quantity-btn-page" onclick="updateProductQuantity(1)">+</button>
+                                <button class="quantity-btn-page" onclick="updateSelectedQuantity(1)">+</button>
                             </div>
                         </div>
+                        
                         <div class="product-detail-actions">
-                            <button class="add-to-cart-large" onclick="addToCartFromPage()"><span>🛒</span><span>Ajouter au panier</span></button>
-                            <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleWishlist(${product.id})">${isInWishlist ? '❤️' : '🤍'}</button>
+                            <button class="add-to-cart-large" onclick="addToCartWithQuantity(${product.id})">
+                                <span>🛒</span> Ajouter au panier
+                            </button>
                         </div>
+                        
                         <div class="product-features">
-                            <div class="feature-item"><div class="feature-icon">🌿</div><div class="feature-text"><strong>100% Naturel</strong>Ingrédients bio</div></div>
-                            <div class="feature-item"><div class="feature-icon">🐰</div><div class="feature-text"><strong>Cruelty Free</strong>Non testé sur animaux</div></div>
-                            <div class="feature-item"><div class="feature-icon">♻️</div><div class="feature-text"><strong>Éco-responsable</strong>Emballage recyclable</div></div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌿</div>
+                                <div class="feature-text"><strong>100% Naturel</strong>Sans parabènes</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🚚</div>
+                                <div class="feature-text"><strong>Livraison offerte</strong>Dès 50€</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">↩️</div>
+                                <div class="feature-text"><strong>Retour gratuit</strong>Sous 30 jours</div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="product-sections">
                     <div class="product-section-card">
-                        <h3 class="product-section-title"><span>📋</span>Ingrédients</h3>
-                        <div class="product-section-content">
-                            <ul class="ingredients-list">${(product.ingredients || '').split(', ').map(ing => `<li>${ing}</li>`).join('')}</ul>
-                        </div>
+                        <h3 class="product-section-title"><span>🌺</span> Ingrédients</h3>
+                        <p class="product-section-content">${product.ingredients}</p>
                     </div>
                     <div class="product-section-card">
-                        <h3 class="product-section-title"><span>✨</span>Conseils d'utilisation</h3>
-                        <div class="product-section-content"><p>${product.usage || 'Appliquer selon vos besoins.'}</p></div>
+                        <h3 class="product-section-title"><span>📋</span> Conseils d'utilisation</h3>
+                        <p class="product-section-content">${product.usage}</p>
                     </div>
                 </div>
-                ${relatedProducts.length > 0 ? `
-                    <div class="related-products">
-                        <h3 class="related-title">Produits similaires</h3>
-                        <div class="related-grid">
-                            ${relatedProducts.map(rp => `
-                                <div class="related-card" onclick="openProductPage(${rp.id})">
-                                    <div class="related-image">${rp.icon}</div>
-                                    <div class="related-info"><div class="related-name">${rp.name}</div><div class="related-price">${rp.price.toFixed(2)} €</div></div>
+                
+                ${related.length > 0 ? `
+                <div style="margin-top: 4rem; padding-top: 3rem; border-top: 2px solid var(--light);">
+                    <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; text-align: center; color: var(--primary); margin-bottom: 2rem;">Vous aimerez aussi</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;">
+                        ${related.map(p => `
+                            <div onclick="openProductPage(${p.id})" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.3s ease;">
+                                <div style="height: 150px; background: linear-gradient(135deg, var(--accent), var(--light)); display: flex; align-items: center; justify-content: center; font-size: 3rem;">${p.icon}</div>
+                                <div style="padding: 1rem;">
+                                    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--primary); margin-bottom: 0.3rem;">${p.name}</h4>
+                                    <span style="font-weight: 500; color: var(--secondary);">${p.price.toFixed(2)} €</span>
                                 </div>
-                            `).join('')}
-                        </div>
+                            </div>
+                        `).join('')}
                     </div>
+                </div>
                 ` : ''}
             `;
+            
             document.getElementById('productPageOverlay').classList.add('active');
-            document.body.classList.add('product-page-open');
-            document.getElementById('productPageOverlay').scrollTop = 0;
+            document.body.style.overflow = 'hidden';
         }
 
         function closeProductPage() {
             document.getElementById('productPageOverlay').classList.remove('active');
-            document.body.classList.remove('product-page-open');
-            currentProductId = null;
-            currentProductQuantity = 1;
+            document.body.style.overflow = '';
         }
 
-        function updateProductQuantity(change) {
-            currentProductQuantity = Math.max(1, currentProductQuantity + change);
-            document.getElementById('quantityDisplay').textContent = currentProductQuantity;
+        function updateSelectedQuantity(change) {
+            selectedQuantity = Math.max(1, selectedQuantity + change);
+            document.getElementById('quantityDisplay').textContent = selectedQuantity;
         }
 
-        function addToCartFromPage() {
-            if (!currentProductId) return;
-            const product = products.find(p => p.id === currentProductId);
-            const existingItem = cart.find(item => item.id === currentProductId);
-            if (existingItem) { existingItem.quantity += currentProductQuantity; }
-            else { cart.push({ ...product, quantity: currentProductQuantity }); }
+        function addToCartWithQuantity(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += selectedQuantity;
+            } else {
+                cart.push({ ...product, quantity: selectedQuantity });
+            }
+            
             updateCart();
-            const btn = document.querySelector('.add-to-cart-large');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<span>✓</span><span>Ajouté au panier !</span>';
+            
+            const btn = event.target.closest('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span>✓</span> Ajouté !';
             btn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
-            setTimeout(() => { btn.innerHTML = originalHTML; btn.style.background = ''; }, 1500);
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 1500);
         }
 
-        function toggleWishlist(productId) {
-            const index = wishlist.indexOf(productId);
-            if (index > -1) { wishlist.splice(index, 1); } else { wishlist.push(productId); }
-            if (currentProductId === productId) { openProductPage(productId); }
-        }
-
+        // CART
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             const existingItem = cart.find(item => item.id === productId);
-            if (existingItem) { existingItem.quantity++; } else { cart.push({ ...product, quantity: 1 }); }
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
             updateCart();
+            
             if (event && event.target) {
                 const btn = event.target;
                 btn.textContent = 'Ajouté ✓';
                 btn.style.background = '#27ae60';
-                setTimeout(() => { btn.textContent = 'Ajouter'; btn.style.background = ''; }, 1000);
+                setTimeout(() => {
+                    btn.textContent = 'Ajouter';
+                    btn.style.background = '';
+                }, 1000);
             }
         }
 
@@ -1126,7 +2145,8 @@
             const item = cart.find(item => item.id === productId);
             if (item) {
                 item.quantity += change;
-                if (item.quantity <= 0) { removeFromCart(productId); } else { updateCart(); }
+                if (item.quantity <= 0) removeFromCart(productId);
+                else updateCart();
             }
         }
 
@@ -1141,10 +2161,13 @@
             const cartItems = document.getElementById('cartItems');
             const cartTotal = document.getElementById('cartTotal');
             const cartFooter = document.getElementById('cartFooter');
+            
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
             cartCount.textContent = totalItems;
-            if (productPageCartCount) { productPageCartCount.textContent = totalItems; }
+            if (productPageCartCount) productPageCartCount.textContent = totalItems;
+            
             if (cart.length === 0) {
                 cartItems.innerHTML = `<div class="empty-cart"><div class="empty-cart-icon">🛍️</div><p>Votre panier est vide</p></div>`;
                 cartFooter.style.display = 'none';
@@ -1185,30 +2208,52 @@
 
         function showOrderConfirmation(total) {
             const notification = document.createElement('div');
-            notification.style.cssText = `position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem 3rem; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); z-index: 10000; text-align: center; min-width: 300px;`;
+            notification.style.cssText = `position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2.5rem 3rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); z-index: 10000; text-align: center; min-width: 320px;`;
             notification.innerHTML = `
                 <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
                 <div style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #0d4d4d; margin-bottom: 1rem;">Commande validée</div>
                 <div style="font-size: 1.5rem; color: #e8a55c; font-weight: 500; margin-bottom: 1.5rem;">Total : ${total.toFixed(2)} €</div>
-                <div style="color: #666; margin-bottom: 1.5rem;">Merci pour votre commande !</div>
-                <button onclick="this.parentElement.remove(); document.getElementById('checkoutOverlay').remove();" style="background: linear-gradient(135deg, #4db8a8 0%, #0a7a8c 100%); color: white; border: none; padding: 0.8rem 2rem; border-radius: 25px; cursor: pointer; font-size: 1rem; font-weight: 500;">Continuer</button>
+                <div style="color: #666; margin-bottom: 1.5rem;">Mauruuru ! Merci pour votre commande 🌺</div>
+                <button onclick="this.parentElement.remove(); document.getElementById('checkoutOverlay').remove();" style="background: linear-gradient(135deg, #4db8a8 0%, #0a7a8c 100%); color: white; border: none; padding: 1rem 2.5rem; border-radius: 30px; cursor: pointer; font-size: 1rem; font-weight: 500;">Continuer</button>
             `;
             document.body.appendChild(notification);
+            
             const overlay = document.createElement('div');
             overlay.id = 'checkoutOverlay';
             overlay.style.cssText = `position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 9999;`;
             overlay.onclick = function() { notification.remove(); overlay.remove(); };
             document.body.appendChild(overlay);
-            setTimeout(() => { if (notification.parentElement) { notification.remove(); overlay.remove(); } }, 5000);
         }
 
+        // CONTACT FORM
+        function submitForm() {
+            const notification = document.createElement('div');
+            notification.style.cssText = `position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2.5rem 3rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); z-index: 10000; text-align: center;`;
+            notification.innerHTML = `
+                <div style="font-size: 4rem; margin-bottom: 1rem;">📨</div>
+                <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #0d4d4d; margin-bottom: 1rem;">Message envoyé !</div>
+                <div style="color: #666; margin-bottom: 1.5rem;">Nous vous répondrons rapidement.</div>
+                <button onclick="this.parentElement.remove(); document.getElementById('formOverlay').remove();" style="background: linear-gradient(135deg, #4db8a8 0%, #0a7a8c 100%); color: white; border: none; padding: 1rem 2rem; border-radius: 30px; cursor: pointer;">OK</button>
+            `;
+            document.body.appendChild(notification);
+            
+            const overlay = document.createElement('div');
+            overlay.id = 'formOverlay';
+            overlay.style.cssText = `position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 9999;`;
+            overlay.onclick = function() { notification.remove(); overlay.remove(); };
+            document.body.appendChild(overlay);
+        }
+
+        // KEYBOARD
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                if (document.getElementById('productPageOverlay').classList.contains('active')) { closeProductPage(); }
-                else if (document.getElementById('cartSidebar').classList.contains('open')) { toggleCart(); }
-                else if (document.getElementById('searchModal').classList.contains('active')) { toggleSearch(); }
+                if (document.getElementById('productPageOverlay').classList.contains('active')) closeProductPage();
+                else if (document.getElementById('cartSidebar').classList.contains('open')) toggleCart();
             }
         });
+
+        // INIT
+        renderProducts();
     </script>
 </body>
 </html>
