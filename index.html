@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paz de Fenua - Cosmétiques Naturels</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- =============================================
+         HEADER
+         ============================================= -->
+    <header>
+        <nav>
+            <div class="logo" onclick="navigateTo('home')">Paz de Fenua</div>
+            
+            <div class="nav-links" id="navLinks">
+                <a class="nav-link active" data-page="home" onclick="navigateTo('home')">Accueil</a>
+                <a class="nav-link" data-page="products" onclick="navigateTo('products')">Nos Produits</a>
+                <a class="nav-link" data-page="contact" onclick="navigateTo('contact')">Contact</a>
+                <div class="nav-icons">
+                    <button class="nav-icon-btn" onclick="navigateTo('favorites')" title="Mes favoris">
+                        ❤️
+                        <span class="nav-badge fav-badge" id="favCount">0</span>
+                    </button>
+                    <button class="nav-icon-btn" onclick="toggleCart()" title="Mon panier">
+                        🛒
+                        <span class="nav-badge" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+            
+            <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- =============================================
+         PAGE ACCUEIL
+         ============================================= -->
+    <div class="page active" id="page-home">
+        <section class="home-hero">
+            <div class="home-hero-content">
+                <h1>Paz de Fenua</h1>
+                <p class="home-hero-subtitle">L'essence du Pacifique pour votre beauté naturelle</p>
+                <div class="hero-cta">
+                    <button class="cta-btn cta-primary" onclick="navigateTo('products')">Découvrir nos produits</button>
+                    <button class="cta-btn cta-secondary" onclick="scrollToAbout()">Notre histoire</button>
+                </div>
+            </div>
+            <div class="wave-decoration">
+                <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    <path fill="#fdfbf7" d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
+                </svg>
+            </div>
+        </section>
+
+        <section class="about-section" id="aboutSection">
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="about-badge">🌿 100% Naturel</div>
+                </div>
+                <div class="about-content">
+                    <h2>La beauté venue des <span>îles du Pacifique</span></h2>
+                    <p>Paz de Fenua puise son inspiration dans les traditions ancestrales polynésiennes. Nos formules uniques combinent les trésors naturels des îles du Pacifique : le monoï de Tahiti, l'huile de coco vierge, le tamanu sacré et les fleurs de tiaré parfumées.</p>
+                    <p>Chaque produit est élaboré avec respect pour la nature et les savoir-faire traditionnels, pour vous offrir une expérience sensorielle authentique et des résultats visibles.</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="about-feature-icon">🌱</div>
+                            <div class="about-feature-text">
+                                <h4>Ingrédients naturels</h4>
+                                <p>Sans parabènes ni sulfates</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">🐰</div>
+                            <div class="about-feature-text">
+                                <h4>Cruelty-free</h4>
+                                <p>Non testé sur les animaux</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">♻️</div>
+                            <div class="about-feature-text">
+                                <h4>Éco-responsable</h4>
+                                <p>Emballages recyclables</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">🇵🇫</div>
+                            <div class="about-feature-text">
+                                <h4>Made in Tahiti</h4>
+                                <p>Fabriqué en Polynésie</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="values-section">
+            <div class="values-container">
+                <div class="section-header">
+                    <h2>Nos Valeurs</h2>
+                    <p>Des principes qui guident chacune de nos créations</p>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">🌺</div>
+                        <h3>Authenticité</h3>
+                        <p>Nous préservons les recettes traditionnelles polynésiennes transmises de génération en génération.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🌊</div>
+                        <h3>Respect de l'océan</h3>
+                        <p>Nos formules sont biodégradables et nos emballages sont conçus pour minimiser notre impact.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">💚</div>
+                        <h3>Efficacité naturelle</h3>
+                        <p>La puissance des actifs botaniques du Pacifique pour des résultats visibles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="origins-section">
+            <div class="origins-container">
+                <h2>Notre Héritage Polynésien</h2>
+                <p>Paz de Fenua signifie "Paix de la Terre" en tahitien. Cette philosophie guide notre approche : créer des cosmétiques qui honorent la terre qui nous nourrit et les traditions qui nous inspirent.</p>
+                <div class="origins-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Produits</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Naturel</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5000+</span>
+                        <span class="stat-label">Clients satisfaits</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-container">
+                <h2>Prêt(e) à découvrir nos trésors ?</h2>
+                <p>Explorez notre collection de soins naturels inspirés du Pacifique.</p>
+                <button class="cta-button" onclick="navigateTo('products')">Voir tous nos produits</button>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Paz de Fenua</h3>
+                    <p>Cosmétiques naturels inspirés des traditions ancestrales polynésiennes.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a onclick="navigateTo('home')">Accueil</a></li>
+                        <li><a onclick="navigateTo('products')">Nos Produits</a></li>
+                        <li><a onclick="navigateTo('favorites')">Mes Favoris</a></li>
+                        <li><a onclick="navigateTo('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📍 Papeete, Tahiti<br>📧 contact@pazdefenua.com<br>📞 +689 40 123 456</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Paz de Fenua - Tous droits réservés</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- =============================================
+         PAGE PRODUITS
+         ============================================= -->
+    <div class="page" id="page-products">
+        <section class="products-hero">
+            <div class="products-hero-content">
+                <h1>Nos Produits</h1>
+                <p>Des soins naturels pour révéler votre beauté</p>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <div class="filters-container">
+                <div class="filters-header">
+                    <div class="filters-header-title" onclick="toggleFilters()"><span>Filtres & Tri</span></div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="view-toggle">
+                            <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')">⊞</button>
+                            <button class="view-btn" id="listViewBtn" onclick="setView('list')">☰</button>
+                        </div>
+                        <div class="toggle-icon" id="toggleIcon" onclick="toggleFilters()">▼</div>
+                    </div>
+                </div>
+                <div class="filters-content" id="filtersContent">
+                    <div class="filters-row">
+                        <div class="filter-group">
+                            <span class="filter-label">Catégories:</span>
+                            <div class="category-filters">
+                                <button class="category-btn active" onclick="filterByCategory('all')">Tous</button>
+                                <button class="category-btn" onclick="filterByCategory('soin-visage')">Soin Visage</button>
+                                <button class="category-btn" onclick="filterByCategory('soin-corps')">Soin Corps</button>
+                                <button class="category-btn" onclick="filterByCategory('cheveux')">Cheveux</button>
+                                <button class="category-btn" onclick="filterByCategory('maquillage')">Maquillage</button>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-label">Trier par:</span>
+                            <select class="sort-select" id="sortSelect" onchange="sortProducts()">
+                                <option value="default">Par défaut</option>
+                                <option value="name-asc">Nom (A-Z)</option>
+                                <option value="name-desc">Nom (Z-A)</option>
+                                <option value="price-asc">Prix (croissant)</option>
+                                <option value="price-desc">Prix (décroissant)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="products-grid" id="productsGrid"></div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Paz de Fenua</h3>
+                    <p>Cosmétiques naturels inspirés des traditions ancestrales polynésiennes.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a onclick="navigateTo('home')">Accueil</a></li>
+                        <li><a onclick="navigateTo('products')">Nos Produits</a></li>
+                        <li><a onclick="navigateTo('favorites')">Mes Favoris</a></li>
+                        <li><a onclick="navigateTo('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📍 Papeete, Tahiti<br>📧 contact@pazdefenua.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Paz de Fenua - Tous droits réservés</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- =============================================
+         PAGE FAVORIS
+         ============================================= -->
+    <div class="page" id="page-favorites">
+        <section class="favorites-hero">
+            <div class="favorites-hero-content">
+                <h1>Mes Favoris</h1>
+                <p>Vos produits préférés au même endroit</p>
+            </div>
+        </section>
+
+        <section class="favorites-section">
+            <div id="quickOrderBanner"></div>
+            <div class="products-grid" id="favoritesGrid"></div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Paz de Fenua</h3>
+                    <p>Cosmétiques naturels inspirés des traditions ancestrales polynésiennes.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a onclick="navigateTo('home')">Accueil</a></li>
+                        <li><a onclick="navigateTo('products')">Nos Produits</a></li>
+                        <li><a onclick="navigateTo('favorites')">Mes Favoris</a></li>
+                        <li><a onclick="navigateTo('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📍 Papeete, Tahiti<br>📧 contact@pazdefenua.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Paz de Fenua - Tous droits réservés</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- =============================================
+         PAGE CONTACT
+         ============================================= -->
+    <div class="page" id="page-contact">
+        <section class="contact-hero">
+            <h1>Contactez-nous</h1>
+        </section>
+
+        <section class="contact-section">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Restons en contact</h2>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <h4>Adresse</h4>
+                            <p>123 Rue du Monoï<br>98713 Papeete, Tahiti</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p>contact@pazdefenua.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">
+                            <h4>Téléphone</h4>
+                            <p>+689 40 123 456</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕐</div>
+                        <div class="contact-text">
+                            <h4>Horaires</h4>
+                            <p>Lun - Ven : 9h - 18h<br>Sam : 10h - 16h</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div class="form-group">
+                        <label>Nom complet</label>
+                        <input type="text" placeholder="Votre nom">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="votre@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Sujet</label>
+                        <input type="text" placeholder="Comment pouvons-nous vous aider ?">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="Votre message..."></textarea>
+                    </div>
+                    <button class="submit-btn" onclick="submitForm()">Envoyer le message</button>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Paz de Fenua</h3>
+                    <p>Cosmétiques naturels inspirés des traditions ancestrales polynésiennes.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a onclick="navigateTo('home')">Accueil</a></li>
+                        <li><a onclick="navigateTo('products')">Nos Produits</a></li>
+                        <li><a onclick="navigateTo('favorites')">Mes Favoris</a></li>
+                        <li><a onclick="navigateTo('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📍 Papeete, Tahiti<br>📧 contact@pazdefenua.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Paz de Fenua - Tous droits réservés</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- =============================================
+         OVERLAY PAGE PRODUIT
+         ============================================= -->
+    <div class="product-page-overlay" id="productPageOverlay">
+        <div class="product-page-header">
+            <div class="product-page-nav">
+                <button class="back-btn" onclick="closeProductPage()"><span>←</span><span>Retour</span></button>
+                <div class="product-page-logo" onclick="closeProductPage()">Paz de Fenua</div>
+                <div class="product-page-actions">
+                    <button class="product-page-btn" onclick="navigateTo('favorites'); closeProductPage();" title="Mes favoris">
+                        ❤️
+                        <span class="badge" id="productPageFavCount">0</span>
+                    </button>
+                    <button class="product-page-btn" onclick="toggleCart()" title="Mon panier">
+                        🛒
+                        <span class="badge" id="productPageCartCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="product-page-container">
+            <div class="product-page-content" id="productPageContent"></div>
+        </div>
+    </div>
+
+    <!-- =============================================
+         SIDEBAR PANIER
+         ============================================= -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Votre Panier</h2>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart"><div class="empty-cart-icon">🛍️</div><p>Votre panier est vide</p></div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-amount" id="cartTotal">0 €</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Commander</button>
+        </div>
+    </aside>
+
+    <!-- =============================================
+         NOTIFICATION TOAST
+         ============================================= -->
+    <div class="toast" id="toast"></div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>
