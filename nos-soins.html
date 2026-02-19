@@ -30,6 +30,35 @@
 
   html { scroll-behavior: smooth; }
 
+  /* ——— Scrollbar visible uniquement au hover ——— */
+  body {
+    overflow-y: scroll;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+    transition: background 0.3s;
+  }
+  body:hover::-webkit-scrollbar-thumb {
+    background: rgba(196, 168, 130, 0.35);
+  }
+  body:hover::-webkit-scrollbar-thumb:hover {
+    background: rgba(196, 168, 130, 0.55);
+  }
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  html:hover {
+    scrollbar-color: rgba(196, 168, 130, 0.35) transparent;
+  }
+
   body {
     font-family: 'Lato', sans-serif;
     color: var(--text-dark);
@@ -205,29 +234,35 @@
     align-items: center;
     justify-content: center;
     z-index: 10;
+    opacity: 0.35;
+    transition: opacity 0.4s ease;
+  }
+
+  .carousel-controls:hover {
+    opacity: 1;
   }
 
   .carousel-nav {
     display: flex;
     align-items: center;
-    gap: 16px;
-    background: rgba(245, 239, 230, 0.95);
-    backdrop-filter: blur(8px);
-    padding: 16px 32px;
-    border-radius: 30px 30px 0 0;
+    gap: 12px;
+    background: rgba(245, 239, 230, 0.6);
+    backdrop-filter: blur(6px);
+    padding: 10px 22px;
+    border-radius: 20px 20px 0 0;
   }
 
   .carousel-btn {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    border: 1.5px solid var(--sand);
+    border: 1px solid rgba(196, 168, 130, 0.4);
     background: transparent;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-dark);
+    color: var(--text-medium);
     transition: all 0.3s;
   }
 
@@ -238,20 +273,20 @@
   }
 
   .carousel-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
   }
 
   .carousel-dots {
     display: flex;
-    gap: 10px;
+    gap: 8px;
   }
 
   .carousel-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: var(--sand-light);
+    background: rgba(196, 168, 130, 0.3);
     border: none;
     cursor: pointer;
     transition: all 0.3s;
@@ -259,8 +294,8 @@
 
   .carousel-dot.active {
     background: var(--gold);
-    width: 24px;
-    border-radius: 4px;
+    width: 18px;
+    border-radius: 3px;
   }
 
   /* ─── Wave Divider at bottom ─── */
@@ -319,6 +354,79 @@
   }
 
   /* ─── Responsive ─── */
+  /* ——— Add to Cart Button ——— */
+  .slide-add-cart {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    z-index: 5;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    color: white;
+    background: rgba(184, 151, 106, 0.85);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 1;
+  }
+
+  .slide-add-cart:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    transform: scale(1.03);
+  }
+
+  .slide-add-cart.added {
+    background: var(--teal) !important;
+    border-color: var(--teal) !important;
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: var(--gold);
+    color: white;
+    font-size: 10px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    pointer-events: none;
+  }
+
+  /* ——— Toast ——— */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--text-dark);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    pointer-events: none;
+    box-shadow: 0 8px 30px rgba(61, 51, 40, 0.2);
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
   @media (max-width: 900px) {
     .carousel-slide {
       min-width: 100%;
@@ -349,11 +457,12 @@
   </ul>
   <div class="nav-right">
     <div class="nav-icons">
-      <button aria-label="Panier">
+      <a href="panier.html" aria-label="Panier" style="position:relative;color:inherit;text-decoration:none;">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
         </svg>
-      </button>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
       <button aria-label="Filtrer">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"/>
@@ -373,8 +482,9 @@
       <div class="slide-overlay"></div>
       <div class="slide-info">
         <h3>Masque en Tissu</h3>
-        <p>Monoï, Eau de Coco &amp; Extrait de Noni</p>
+        <p>Monoï, Eau de Coco &amp; Extrait de Noni — 12,90 €</p>
       </div>
+      <button class="slide-add-cart" data-id="masque-noni" data-name="Masque en Tissu" data-desc="Monoï, Eau de Coco &amp; Extrait de Noni" data-price="12.90" data-img="Masque en tissu Fenua.png">Ajouter au panier</button>
     </div>
 
     <!-- Slide 2: L'huile de la Paz -->
@@ -383,8 +493,9 @@
       <div class="slide-overlay"></div>
       <div class="slide-info">
         <h3>L'huile de la Paz</h3>
-        <p>Huile d'olive, Monoï &amp; Miel</p>
+        <p>Huile d'olive, Monoï &amp; Miel — 24,90 €</p>
       </div>
+      <button class="slide-add-cart" data-id="huile-paz" data-name="L'huile de la Paz" data-desc="Huile d'olive, Monoï &amp; Miel" data-price="24.90" data-img="huile.png">Ajouter au panier</button>
     </div>
 
     <!-- Slide 3: Gommage Corps -->
@@ -393,8 +504,9 @@
       <div class="slide-overlay"></div>
       <div class="slide-info">
         <h3>Gommage Corps</h3>
-        <p>Exfoliant et Apaisant</p>
+        <p>Exfoliant et Apaisant — 18,50 €</p>
       </div>
+      <button class="slide-add-cart" data-id="gommage-corps" data-name="Gommage Corps" data-desc="Exfoliant et Apaisant" data-price="18.50" data-img="Exfoliant Olive.png">Ajouter au panier</button>
     </div>
 
     <!-- Slide 4: Masque en Tissu -->
@@ -403,8 +515,9 @@
       <div class="slide-overlay"></div>
       <div class="slide-info">
         <h3>Masque en Tissu</h3>
-        <p>Monoï, Huile d'olive &amp; Miel</p>
+        <p>Monoï, Huile d'olive &amp; Miel — 12,90 €</p>
       </div>
+      <button class="slide-add-cart" data-id="masque-miel" data-name="Masque en Tissu" data-desc="Monoï, Huile d'olive &amp; Miel" data-price="12.90" data-img="masque2.png">Ajouter au panier</button>
     </div>
   </div>
 
@@ -534,6 +647,78 @@
   // Init
   handleResize();
   startAutoplay();
+</script>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ——— Cart Logic (shared via localStorage) ———
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem('pazCart')) || []; }
+    catch(e) { return []; }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('pazCart', JSON.stringify(cart));
+    updateBadge();
+  }
+
+  function updateBadge() {
+    var cart = getCart();
+    var total = 0;
+    for (var i = 0; i < cart.length; i++) { total += cart[i].qty; }
+    var badge = document.getElementById('cartBadge');
+    if (badge) badge.textContent = total;
+  }
+
+  function showToast(msg) {
+    var toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2200);
+  }
+
+  function addToCart(id, name, desc, price, img, btn) {
+    var cart = getCart();
+    var existing = null;
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].id === id) { existing = cart[i]; break; }
+    }
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({ id: id, name: name, desc: desc, price: price, img: img, qty: 1 });
+    }
+    saveCart(cart);
+
+    // Button feedback
+    var originalText = btn.textContent;
+    btn.textContent = '\u2713 Ajouté';
+    btn.classList.add('added');
+    setTimeout(function() {
+      btn.textContent = originalText;
+      btn.classList.remove('added');
+    }, 1500);
+
+    showToast(name + ' ajouté au panier');
+  }
+
+  // Event delegation for all add-to-cart buttons
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.slide-add-cart');
+    if (!btn) return;
+    e.stopPropagation();
+    var id = btn.getAttribute('data-id');
+    var name = btn.getAttribute('data-name');
+    var desc = btn.getAttribute('data-desc');
+    var price = parseFloat(btn.getAttribute('data-price'));
+    var img = btn.getAttribute('data-img');
+    addToCart(id, name, desc, price, img, btn);
+  });
+
+  // Init badge
+  updateBadge();
 </script>
 
 </body>
